@@ -4,6 +4,8 @@ import sys
 import lxml
 import urllib2
 import getpass
+import urllib
+import random
 
 
 
@@ -36,8 +38,8 @@ class acadIITR:
             self.response = self.browser.open(acadIITR.baseUrl + 'SubjectCorrection.aspx')
             soup = BeautifulSoup(self.response.read(),"lxml")
             table = soup.find(id = "maincontent_grdSubList")
-            data = "Random : 0 ,Strongly Agree : 1 ,Agree : 2 ,Neutral :3,Disagree : 4,Strongly Disagree :5"
-            automate = input("For Full-automated Script : 1, For Simi-automated Script: 0")
+            data = "Random : 0 ,Strongly Agree : 1 ,Agree : 2 ,Neutral :3,Disagree : 4,Strongly Disagree :5\n"
+            automate = input("For Full-automated Script : 1, For Simi-automated Script: 0\n")
             for row in table.find_all("tr")[1:]:
                 for professors in row.find_all("a"):
                     if (professors):
@@ -51,7 +53,7 @@ class acadIITR:
             print(e.reason)
         except urllib2.URLError as e:
             print(e.reason)
-        except:
+        except Exception:
             print("You have already filled the all the response form")
 
 
@@ -84,8 +86,7 @@ class acadIITR:
             self.response = self.browser.submit()
             self.print_response()
             print("done")
-            sys.exit(0)
-        except:
+        except Exception:
             print('This professor is already filled')
 
 
