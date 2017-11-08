@@ -1,7 +1,7 @@
 # IITR Response Form AutoComplete
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This script is for autocomplete of the response form for professor. Since it is a value long process and someone of us don't have time and just want to move to the Subject Registration Section.Through this script the Review for the professor can be automatically filled, though the Subject Registration you have to do it online.
+This script is for autocompletion of the response form for professor. Since it is a very long process and someone of us don't have time and just want to move to the Subject Registration Section.Through this script the review for the professor can be automatically filled, though for the Subject Registration you have to do that at the official website .
 
 It works with python2 as the used `mechanize` package is only available for python2.
 

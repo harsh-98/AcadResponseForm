@@ -37,9 +37,9 @@ class acadIITR:
             soup = BeautifulSoup(self.response.read(),"lxml")
             table = soup.find(id = "maincontent_grdSubList")
             data = "Random : 0 ,Strongly Agree : 1 ,Agree : 2 ,Neutral :3,Disagree : 4,Strongly Disagree :5"
+            automate = input("For Full-automated Script : 1, For Simi-automated Script: 0")
             for row in table.find_all("tr")[1:]:
                 for professors in row.find_all("a"):
-                    automate = input("For Full-automated Script : 1, For Simi-automated Script: 0")
                     if (professors):
                         print professors.text
                         if (not automate):
@@ -86,7 +86,7 @@ class acadIITR:
             print("done")
             sys.exit(0)
         except:
-            print('An error occured.')
+            print('This professor is already filled')
 
 
     def print_response(self):
