@@ -2,7 +2,8 @@ import mechanize
 from bs4 import BeautifulSoup
 import sys
 import lxml
-import urllib
+import urllib2
+import getpass
 
 
 
@@ -18,9 +19,9 @@ class acadIITR:
         self.browser.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.517.41 Safari/534.7')]
         self.browser.set_handle_refresh(False)
 
-    def login(self,username, password):
-        print self.baseUrl
+    def login(self,username):
         self.browser.open(acadIITR.baseUrl + 'Default.aspx')
+        password = getpass.getpass('Password:')
         for form in self.browser.forms():
             if form.attrs['id'] == 'form1':
                 self.browser.form = form
@@ -29,17 +30,31 @@ class acadIITR:
         self.browser.form['LoginView1$password'] = password
         self.response = self.browser.submit()
 
+
     def subjectReg(self):
-        self.response = self.browser.open(acadIITR.baseUrl + 'SubjectCorrection.aspx')
-        soup = BeautifulSoup(self.response.read(),"lxml")
-        table = soup.find(id = "maincontent_grdSubList")
-        data = "Random : 0 ,Strongly Agree : 1 ,Agree : 2 ,Neutral :3,Disagree : 4,Strongly Disagree :5"
-        for row in table.find_all("tr")[1:]:
-            for professors in row.find_all("a"):
-                if (professors):
-                    print professors.text
-                    option = raw_input(data)
-                    self.responsePage(professors.get("href"), option)
+        try :
+            self.response = self.browser.open(acadIITR.baseUrl + 'SubjectCorrection.aspx')
+            soup = BeautifulSoup(self.response.read(),"lxml")
+            table = soup.find(id = "maincontent_grdSubList")
+            data = "Random : 0 ,Strongly Agree : 1 ,Agree : 2 ,Neutral :3,Disagree : 4,Strongly Disagree :5"
+            for row in table.find_all("tr")[1:]:
+                for professors in row.find_all("a"):
+                    automate = input("For Full-automated Script : 1, For Simi-automated Script: 0")
+                    if (professors):
+                        print professors.text
+                        if (not automate):
+                            option = input(data)
+                        else:
+                            option = 0
+                        self.responsePage(professors.get("href"), option)
+        except urllib2.HTTPError as e:
+            print(e.reason)
+        except urllib2.URLError as e:
+            print(e.reason)
+        except:
+            print("You have already filled the all the response form")
+
+
 
     def responsePage(self, pageUrl, option):
         try:
@@ -64,7 +79,6 @@ class acadIITR:
                 else:
                     post_data[name] = random.randint(1, 5)
 
-            print(post_data)
             self.response = self.browser.open(acadIITR.baseUrl + pageUrl, urllib.urlencode(post_data))
             self.browser.select_form(nr=0)
             self.response = self.browser.submit()
@@ -76,13 +90,12 @@ class acadIITR:
 
 
     def print_response(self):
-        file=open("fb.html","w")
+        file=open("page.html","w")
         file.write(self.response.read())
         file.close()
 
 
+
 acad = acadIITR()
-acad.login(sys.argv[1], sys.argv[2])
-#acad.print_response()
+acad.login(sys.argv[1])
 acad.subjectReg()
-#acad.print_response()
