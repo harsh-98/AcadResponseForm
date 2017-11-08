@@ -11,8 +11,8 @@ It works with python2 as the used `mechanize` package is only available for pyth
 
 ## SetUp
 
-`pip install -r requirements.txt`
-`python2 response_form.py {username}`
+    pip install -r requirements.txt
+    python2 response_form.py {username}
 
 ### Option
 
