@@ -17,7 +17,16 @@ It works with python2 as the used `mechanize` package is only available for pyth
 ### Option
 
     For Full-automated Script : 1
+	`under fully-automatic, options are randomly selected`
     For Semi-automated Script: 0
+	`Under semi-automatic, you can select the individual ranking for the professor`
+-    Random : 0
+-    Strongly Agree : 1 
+-    Agree : 2 
+-    Neutral :3
+-    Disagree : 4
+-    Strongly Disagree :5
+
 
 ## License
 
