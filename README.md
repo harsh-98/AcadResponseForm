@@ -12,16 +12,12 @@ It works with python2 as the used `mechanize` package is only available for pyth
 ## SetUp
 
     pip install -r requirements.txt
-    python2 response_form.py {username}
+    python2 acadresponseform.py {username}
 
 ### Option
 
-    Random : 0
-    Strongly Agree : 1 
-    Agree : 2 
-    Neutral :3
-    Disagree : 4
-    Strongly Disagree :5
+    For Full-automated Script : 1
+    For Semi-automated Script: 0
 
 ## License
 
